@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Notes from the Garden is a small blog about plants, weekend walks, and quiet outdoor habits." />
+    <meta name="keywords" content="garden, plants, blog, accessibility, HTML" />
+    <meta name="author" content="Notes from the Garden" />
+    <meta name="robots" content="index, follow" />
+    <meta name="theme-color" content="#2f5d3a" />
+    <meta property="og:title" content="Notes from the Garden" />
+    <meta property="og:description" content="A simple blog and landing page with articles, media, and a newsletter form." />
+    <meta property="og:type" content="website" />
+    <title>Notes from the Garden</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <a href="#main-content">Skip to main content</a>
+
+    <header>
+      <p>Notes from the Garden</p>
+      <p>A quiet blog about plants, paths, and the weather between seasons.</p>
+      <nav aria-label="Primary">
+        <ul>
+          <li><a href="#featured">Featured story</a></li>
+          <li><a href="#articles">Latest posts</a></li>
+          <li><a href="#media">Field notes</a></li>
+          <li><a href="#newsletter">Newsletter</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main id="main-content">
+      <section id="featured" aria-labelledby="featured-heading">
+        <h1 id="featured-heading">Welcome to the garden desk</h1>
+        <p>
+          This page is a small landing blog. It uses
+          <abbr title="HyperText Markup Language">HTML</abbr>
+          landmarks, labelled forms, and captions so the layout stays readable with or without extra styling.
+        </p>
+
+        <article>
+          <header>
+            <h2>How the first tomatoes found the sun</h2>
+            <p>
+              Published
+              <time datetime="2026-08-18">18 August 2026</time>
+              by Maya Chen
+            </p>
+          </header>
+          <p>
+            The balcony boxes looked empty in April. By late summer the vines had climbed the rail and the fruit
+            finally turned from green to a warm red.
+          </p>
+          <blockquote cite="https://example.com/garden-notes">
+            <p>Water early, wait for heat, and leave the leaves that still look alive.</p>
+            <footer>— From last year’s planting notebook</footer>
+          </blockquote>
+          <figure>
+            <img
+              src="https://picsum.photos/id/292/800/450"
+              alt="Ripe red tomatoes hanging from a vine in a wooden planter"
+              width="800"
+              height="450"
+            />
+            <figcaption>Figure 1. The first ripe tomatoes on the balcony rail.</figcaption>
+          </figure>
+        </article>
+      </section>
+
+      <section id="articles" aria-labelledby="articles-heading">
+        <h2 id="articles-heading">Latest posts</h2>
+
+        <article>
+          <h3>Rain, then birdsong</h3>
+          <p>
+            After a short storm the path was dark and the air smelled like wet soil. A
+            <mark>blackbird</mark> started singing before the clouds fully moved on.
+          </p>
+        </article>
+
+        <article>
+          <h3>What we planted in May</h3>
+          <p>
+            Basil, mint, and a stubborn rosemary cutting. The mint spread first. The rosemary waited, then stayed.
+          </p>
+        </article>
+      </section>
+
+      <section id="media" aria-labelledby="media-heading">
+        <h2 id="media-heading">Field notes in image, video, and sound</h2>
+        <p>
+          These samples use public demo files so the page can show
+          <code>&lt;img&gt;</code>, <code>&lt;video&gt;</code>, and <code>&lt;audio&gt;</code>
+          without extra assets in the project.
+        </p>
+
+        <figure>
+          <picture>
+            <source media="(min-width: 700px)" srcset="https://picsum.photos/id/1015/900/500" />
+            <img
+              src="https://picsum.photos/id/1015/600/400"
+              alt="A river valley with trees along the water"
+              width="600"
+              height="400"
+            />
+          </picture>
+          <figcaption>Figure 2. A weekend walk beside the water.</figcaption>
+        </figure>
+
+        <figure>
+          <video controls width="640" height="360" preload="metadata" poster="https://picsum.photos/id/1018/640/360">
+            <source src="https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4" type="video/mp4" />
+            <track
+              kind="captions"
+              srclang="en"
+              label="English captions"
+              src="data:text/vtt,WEBVTT%0A%0A00:00:00.000 --&gt; 00:00:03.000%0AA flower opens in time-lapse."
+              default
+            />
+            Your browser does not support the video element. A short time-lapse of a flower opening is described here.
+          </video>
+          <figcaption>Figure 3. Time-lapse of a flower opening, with captions when supported.</figcaption>
+        </figure>
+
+        <figure>
+          <audio controls preload="none">
+            <source src="https://interactive-examples.mdn.mozilla.net/media/cc0-audio/t-rex-roar.mp3" type="audio/mpeg" />
+            Your browser does not support the audio element.
+          </audio>
+          <figcaption>Figure 4. A short nature-sound clip used as a demo audio file.</figcaption>
+        </figure>
+      </section>
+
+      <section id="newsletter" aria-labelledby="newsletter-heading">
+        <h2 id="newsletter-heading">Join the Sunday letter</h2>
+        <p id="newsletter-help">
+          The form uses labels, a fieldset, required fields, and input types. Nothing is sent anywhere yet;
+          <code>action</code> points to this same page.
+        </p>
+
+        <form
+          action="#newsletter"
+          method="post"
+          autocomplete="on"
+          aria-describedby="newsletter-help"
+        >
+          <fieldset>
+            <legend>Your details</legend>
+
+            <p>
+              <label for="full-name">Full name</label>
+              <input
+                id="full-name"
+                name="full_name"
+                type="text"
+                autocomplete="name"
+                required
+                minlength="2"
+                maxlength="80"
+                placeholder="Maya Chen"
+              />
+            </p>
+
+            <p>
+              <label for="email">Email address</label>
+              <input
+                id="email"
+                name="email"
+                type="email"
+                autocomplete="email"
+                required
+                inputmode="email"
+                placeholder="maya@example.com"
+                aria-required="true"
+              />
+            </p>
+
+            <p>
+              <label for="website">Website <span>(optional)</span></label>
+              <input
+                id="website"
+                name="website"
+                type="url"
+                autocomplete="url"
+                placeholder="https://example.com"
+              />
+            </p>
+
+            <p>
+              <label for="phone">Phone <span>(optional)</span></label>
+              <input
+                id="phone"
+                name="phone"
+                type="tel"
+                autocomplete="tel"
+                placeholder="+1 555 0100"
+              />
+            </p>
+          </fieldset>
+
+          <fieldset>
+            <legend>What should we send?</legend>
+
+            <p>
+              <label for="topic">Favourite topic</label>
+              <input id="topic" name="topic" list="topic-options" required />
+              <datalist id="topic-options">
+                <option value="Balcony plants"></option>
+                <option value="Weekend walks"></option>
+                <option value="Kitchen herbs"></option>
+              </datalist>
+            </p>
+
+            <p>
+              <label for="frequency">How often?</label>
+              <select id="frequency" name="frequency" required>
+                <option value="">Choose a frequency</option>
+                <option value="weekly">Every Sunday</option>
+                <option value="monthly">Once a month</option>
+              </select>
+            </p>
+
+            <p>
+              <span id="format-label">Email format</span>
+            </p>
+            <p role="group" aria-labelledby="format-label">
+              <label>
+                <input type="radio" name="format" value="html" checked />
+                HTML
+              </label>
+              <label>
+                <input type="radio" name="format" value="text" />
+                Plain text
+              </label>
+            </p>
+
+            <p>
+              <label for="notes">Anything we should know?</label>
+              <textarea
+                id="notes"
+                name="notes"
+                rows="4"
+                maxlength="400"
+                placeholder="Allergies, plant questions, or a favourite path."
+              ></textarea>
+            </p>
+
+            <p>
+              <label>
+                <input type="checkbox" name="consent" value="yes" required />
+                I agree to receive the Sunday letter.
+              </label>
+            </p>
+          </fieldset>
+
+          <p>
+            <button type="submit">Subscribe</button>
+            <button type="reset">Clear form</button>
+          </p>
+        </form>
+      </section>
+
+      <aside aria-labelledby="aside-heading">
+        <h2 id="aside-heading">Garden hours</h2>
+        <p>The desk is quiet on weekday mornings. Letters go out on Sunday.</p>
+        <address>
+          Notes from the Garden<br />
+          <a href="mailto:hello@example.com">hello@example.com</a>
+        </address>
+      </aside>
+    </main>
+
+    <footer>
+      <p>
+        <small>
+          Demo media from public sample hosts. Task 3 page for the internship CSS week.
+        </small>
+      </p>
+    </footer>
+  </body>
+</html>
