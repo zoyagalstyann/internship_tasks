@@ -15,22 +15,20 @@
     />
 
     <meta name="author" content="Zoya Galstyan" />
-
     <meta name="robots" content="index, follow" />
-    <meta property="og:title" content="HomeSync | Smart Home Automation" />
 
+    <meta property="og:title" content="HomeSync | Smart Home Automation" />
     <meta
       property="og:description"
       content="Control your smart home from one simple app."
     />
-
     <meta property="og:image" content="images/homesync-preview.jpg" />
-
     <meta property="og:url" content="https://homesync.com" />
-
     <meta property="og:type" content="website" />
+
     <link rel="stylesheet" href="style.css" />
-    <title>Smart Home Automation</title>
+
+    <title>HomeSync | Smart Home Automation</title>
   </head>
 
   <body>
@@ -39,8 +37,8 @@
         <a href="#" class="logo">HomeSync</a>
 
         <ul class="nav-links">
-          <li><a href="#">Features</a></li>
-          <li><a href="#">How It Works</a></li>
+          <li><a href="#features">Features</a></li>
+          <li><a href="#how-it-works">How It Works</a></li>
           <li><a href="#">About</a></li>
           <li><a href="#">Login</a></li>
         </ul>
@@ -71,39 +69,50 @@
           <p class="home-status">Your home is safe and comfortable.</p>
 
           <div class="dashboard-items">
-            <div class="device">
-              <span>💡</span>
+            <div class="device light-device">
+              <input type="checkbox" id="light-toggle" />
+
+              <label for="light-toggle" class="light-icon"> 💡 </label>
+
               <div>
                 <h3>Lights</h3>
                 <p>Living Room</p>
               </div>
-              <strong>ON</strong>
+
+              <label for="light-toggle" class="light-status"> OFF </label>
             </div>
 
             <div class="device">
               <span>🌡️</span>
+
               <div>
                 <h3>Temperature</h3>
                 <p>Living Room</p>
               </div>
+
               <strong>22°C</strong>
             </div>
 
             <div class="device">
               <span>🔒</span>
+
               <div>
                 <h3>Security</h3>
                 <p>All systems secure</p>
               </div>
+
               <strong>SAFE</strong>
             </div>
           </div>
         </div>
       </section>
+
       <section class="features" id="features">
         <div class="section-heading">
           <p>WHAT HOMESYNC CAN DO</p>
+
           <h2>Everything under control.</h2>
+
           <p>Manage your smart home from one simple place.</p>
         </div>
 
@@ -149,25 +158,32 @@
       <section class="how-it-works" id="how-it-works">
         <div class="section-heading">
           <p>HOW IT WORKS</p>
+
           <h2>Smart home, made simple.</h2>
         </div>
 
         <div class="steps">
           <article class="step">
             <span class="step-number">01</span>
+
             <h3>Connect</h3>
+
             <p>Connect your smart devices to HomeSync in just a few steps.</p>
           </article>
 
           <article class="step">
             <span class="step-number">02</span>
+
             <h3>Control</h3>
+
             <p>Manage your lights, temperature and security from one place.</p>
           </article>
 
           <article class="step">
             <span class="step-number">03</span>
+
             <h3>Relax</h3>
+
             <p>Let HomeSync handle your home while you enjoy your day.</p>
           </article>
         </div>
@@ -176,7 +192,9 @@
       <section class="cta">
         <div class="cta-content">
           <p>READY TO GET STARTED?</p>
+
           <h2>Make your home a little smarter.</h2>
+
           <a href="#" class="primary-button">Get Started</a>
         </div>
       </section>
