@@ -1,0 +1,16 @@
+@use "../abstracts/variables";
+
+.footer {
+    padding: 40px 60px;
+    border-top: 1px solid variables.$border-color;
+    text-align: center;
+
+    &__text {
+        color: variables.$text-light;
+    }
+
+    &__copyright {
+        color: variables.$text-light;
+        font-size: 14px;
+    }
+}

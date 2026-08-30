@@ -1,0 +1,11 @@
+@function spacing($value) {
+    @return $value * 8px;
+}
+
+@function spacing($multiplier) {
+    @return $multiplier * 8px;
+  }
+  
+  @function px-to-rem($px) {
+    @return ($px / 16px) * 1rem;
+  }

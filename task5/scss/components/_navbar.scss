@@ -1,0 +1,27 @@
+@use "../abstracts/mixins";
+@use "../abstracts/variables";
+
+.navbar {
+    @include mixins.flex-between;
+    padding: 20px 60px;
+}
+
+.logo {
+    color: variables.$primary-color;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.nav-links {
+    display: flex;
+    gap: 24px;
+
+    a {
+        color: variables.$text-color;
+        font-weight: 500;
+
+        &:hover {
+            color: variables.$primary-color;
+        }
+    }
+}

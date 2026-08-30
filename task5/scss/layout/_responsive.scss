@@ -1,0 +1,150 @@
+@use "../abstracts/variables";
+
+@media (max-width: 600px) {
+    .navbar {
+        padding: 20px;
+    }
+
+    .nav-links {
+        gap: 12px;
+    }
+
+    .hero {
+        min-height: auto;
+        padding: 80px 20px;
+    }
+
+    .hero__title {
+        font-size: 40px;
+    }
+
+    .hero__text {
+        font-size: 16px;
+    }
+
+    .menu,
+    .about,
+    .benefits,
+    .cta {
+        padding: 70px 20px;
+    }
+
+    .coffee-grid,
+    .benefits-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .section-heading__title {
+        font-size: 32px;
+    }
+
+    .cta__title {
+        font-size: 32px;
+    }
+
+    .footer {
+        padding: 30px 20px;
+    }
+}
+
+@media (min-width: 601px) and (max-width: 900px) {
+    .navbar {
+        padding: 20px 40px;
+    }
+
+    .hero {
+        padding: 60px 40px;
+        gap: 40px;
+    }
+
+    .hero__title {
+        font-size: 46px;
+    }
+
+    .menu,
+    .about,
+    .benefits,
+    .cta {
+        padding: 80px 40px;
+    }
+
+    .coffee-grid,
+    .benefits-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (hover: hover) {
+    .button:hover {
+        transform: translateY(-2px);
+    }
+
+    .nav-links a:hover {
+        color: variables.$primary-color;
+    }
+
+    .coffee-card:hover {
+        transform: translateY(-5px);
+    }
+}
+
+@media (hover: none) {
+    .button,
+    .coffee-card {
+        transform: none;
+    }
+}
+
+@media print {
+    body {
+        background-color: white;
+        color: black;
+    }
+
+    .navbar,
+    .button {
+        display: none;
+    }
+
+    .hero {
+        min-height: auto;
+    }
+
+    .coffee-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .coffee-card {
+        background-color: white;
+        color: black;
+        border: 1px solid #ccc;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms;
+        animation-iteration-count: 1;
+        transition-duration: 0.01ms;
+        scroll-behavior: auto;
+    }
+}
+
+
+
+@media (min-width: 1200px) {
+    .hero {
+        padding-left: 100px;
+        padding-right: 100px;
+    }
+
+    .menu,
+    .about,
+    .benefits,
+    .cta {
+        padding-left: 100px;
+        padding-right: 100px;
+    }
+}

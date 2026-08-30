@@ -1,0 +1,159 @@
+@use "../abstracts/variables";
+@use "../abstracts/functions";
+
+.hero {
+    min-height: 80vh;
+    padding: functions.spacing(10) functions.spacing(8);
+    display: flex;
+    align-items: center;
+
+    &__content {
+        max-width: 600px;
+    }
+
+    &__label {
+        color: variables.$primary-color;
+        font-size: 14px;
+        font-weight: bold;
+        letter-spacing: 2px;
+    }
+
+    &__title {
+        margin: 20px 0;
+        font-size: 56px;
+        line-height: 1.1;
+        color: variables.$text-color;
+    }
+
+    &__text {
+        max-width: 500px;
+        color: variables.$text-light;
+        font-size: 18px;
+        line-height: 1.6;
+    }
+}
+
+.menu {
+    padding: functions.spacing(12) functions.spacing(8);
+
+    .section-heading {
+        max-width: 600px;
+        margin-bottom: functions.spacing(6);
+
+        &__label {
+            color: variables.$primary-color;
+            font-size: 14px;
+            font-weight: bold;
+            letter-spacing: 2px;
+        }
+
+        &__title {
+            margin: 10px 0;
+            font-size: 40px;
+            color: variables.$text-color;
+        }
+
+        &__text {
+            color: variables.$text-light;
+        }
+    }
+}
+
+.coffee-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: functions.spacing(3);
+}
+
+.about {
+    padding: functions.spacing(12) functions.spacing(8);
+    background-color: variables.$primary-color;
+    color: white;
+
+    &__content {
+        max-width: 650px;
+    }
+
+    &__label {
+        font-size: 14px;
+        font-weight: bold;
+        letter-spacing: 2px;
+    }
+
+    &__title {
+        font-size: 40px;
+        margin: 15px 0;
+    }
+
+    &__text {
+        line-height: 1.7;
+    }
+}
+
+.benefits {
+    padding: functions.spacing(12) functions.spacing(8);
+
+    .section-heading {
+        max-width: 600px;
+        margin-bottom: functions.spacing(6);
+
+        &__label {
+            color: variables.$primary-color;
+            font-size: 14px;
+            font-weight: bold;
+            letter-spacing: 2px;
+        }
+
+        &__title {
+            margin: 10px 0;
+            font-size: 40px;
+            color: variables.$text-color;
+        }
+    }
+}
+
+.benefits-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: functions.spacing(4);
+}
+
+.benefit {
+    &__icon {
+        font-size: 32px;
+    }
+
+    &__title {
+        margin: 15px 0 10px;
+        color: variables.$text-color;
+    }
+
+    &__text {
+        color: variables.$text-light;
+        line-height: 1.6;
+    }
+}
+
+.cta {
+    padding: functions.spacing(12) functions.spacing(8);
+    text-align: center;
+    background-color: variables.$background-color;
+
+    &__content {
+        max-width: 700px;
+        margin: 0 auto;
+    }
+
+    &__label {
+        color: variables.$primary-color;
+        font-size: 14px;
+        font-weight: bold;
+        letter-spacing: 2px;
+    }
+
+    &__title {
+        margin: 15px 0 30px;
+        font-size: 42px;
+        color: variables.$text-color;
+    }
+}

@@ -1,0 +1,33 @@
+@use "../abstracts/variables";
+
+.coffee-card {
+    padding: 30px;
+    background-color: variables.$card-background;
+    border-radius: variables.$border-radius;
+    color: variables.$text-color;
+
+    &__icon {
+        font-size: 40px;
+    }
+
+    &__title {
+        margin: 20px 0 10px;
+        font-size: 22px;
+    }
+
+    &__description {
+        color: variables.$text-light;
+        line-height: 1.6;
+    }
+
+    &__price {
+        display: block;
+        margin-top: 20px;
+        font-weight: bold;
+        color: variables.$primary-color;
+    }
+
+    &--featured {
+        border: 2px solid variables.$secondary-color;
+    }
+}

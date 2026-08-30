@@ -1,0 +1,5 @@
+@use "../abstracts/variables";
+
+.header {
+    border-bottom: 1px solid variables.$border-color;
+}
