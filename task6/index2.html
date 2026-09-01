@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Brew & Bean - Quick Order</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      background-color: #f4efe9;
+      color: #1f2421;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 2rem;
+    }
+
+    .order-box {
+      background: #ffffff;
+      border: 1px solid #e2dad0;
+      border-radius: 12px;
+      padding: 1.5rem;
+      width: 100%;
+      max-width: 420px;
+    }
+
+    .btn-group {
+      display: flex;
+      gap: 0.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .btn {
+      flex: 1;
+      padding: 0.6rem;
+      background-color: #1f2421;
+      color: #ffffff;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 0.85rem;
+    }
+
+    .btn:hover {
+      background-color: #c86d51;
+    }
+
+    .order-list {
+      list-style: none;
+      margin-bottom: 1rem;
+    }
+
+    .order-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.5rem 0;
+      border-bottom: 1px solid #e2dad0;
+    }
+
+    .btn-remove {
+      background: none;
+      border: none;
+      color: #c86d51;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .total-price {
+      font-weight: bold;
+      font-size: 1.1rem;
+      text-align: right;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="order-box">
+    <h3>Select Items</h3>
+    <br>
+
+    <div class="btn-group">
+      <button class="btn add-item-btn" data-name="Flat White" data-price="4.25">
+        + Flat White ($4.25)
+      </button>
+
+      <button class="btn add-item-btn" data-name="Cold Brew" data-price="3.75">
+        + Cold Brew ($3.75)
+      </button>
+    </div>
+
+    <h4>Current Order</h4>
+
+    <ul id="orderList" class="order-list"></ul>
+
+    <p class="total-price">
+      Total: $<span id="totalDisplay">0.00</span>
+    </p>
+  </div>
+
+  <script>
+    const orderList = document.querySelector('#orderList');
+    const totalDisplay = document.querySelector('#totalDisplay');
+    const addBtns = document.querySelectorAll('.add-item-btn');
+
+    let runningTotal = 0;
+
+    addBtns.forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        const name = e.target.getAttribute('data-name');
+        const price = parseFloat(e.target.getAttribute('data-price'));
+
+        createOrderItem(name, price);
+        updateTotal(price);
+      });
+    });
+
+    function createOrderItem(name, price) {
+      const li = document.createElement('li');
+      li.className = 'order-item';
+
+      const span = document.createElement('span');
+      span.textContent = `${name} - $${price.toFixed(2)}`;
+
+      const removeBtn = document.createElement('button');
+      removeBtn.className = 'btn-remove';
+      removeBtn.textContent = '✕';
+
+      removeBtn.addEventListener('click', () => {
+        li.remove();
+        updateTotal(-price);
+      });
+
+      li.appendChild(span);
+      li.appendChild(removeBtn);
+      orderList.appendChild(li);
+    }
+
+    function updateTotal(amount) {
+      runningTotal += amount;
+      totalDisplay.textContent = Math.max(0, runningTotal).toFixed(2);
+    }
+  </script>
+
+</body>
+</html>
