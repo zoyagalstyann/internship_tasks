@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brew & Bean - Drink Customizer</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            background-color: #f4efe9;
+            color: #1f2421;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 2rem;
+        }
+
+        .customizer {
+            background: #ffffff;
+            border: 1px solid #e2dad0;
+            border-radius: 12px;
+            padding: 1.5rem;
+            width: 100%;
+            max-width: 420px;
+        }
+
+        .customizer__title {
+            font-size: 1.25rem;
+            color: #1f2421;
+            margin-bottom: 1rem;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        label {
+            display: block;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 0.35rem;
+        }
+
+        input[type="text"],
+        select {
+            width: 100%;
+            padding: 0.5rem;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+        }
+
+
+        .preview-card {
+            margin-top: 1.5rem;
+            padding: 1rem;
+            border-radius: 8px;
+            background-color: #f4efe9;
+            border-left: 4px solid #c86d51;
+            transition: all 0.2s ease;
+        }
+
+        .preview-card--small {
+            font-size: 0.85rem;
+            padding: 0.75rem;
+        }
+
+        .preview-card--medium {
+            font-size: 1rem;
+            padding: 1rem;
+        }
+
+        .preview-card--large {
+            font-size: 1.15rem;
+            padding: 1.25rem;
+        }
+
+        .preview-card__name {
+            color: #1f2421;
+            margin-bottom: 0.5rem;
+        }
+
+        .tag-container {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .tag {
+            font-size: 0.75rem;
+            padding: 0.25rem 0.5rem;
+            background: #e2dad0;
+            border-radius: 4px;
+        }
+
+        .tag--accent {
+            background-color: #627264;
+            color: #ffffff;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="customizer">
+        <h2 class="customizer__title">Drink Builder</h2>
+
+        <div class="form-group">
+            <label for="drinkInput">Custom Drink Name:</label>
+            <input type="text" id="drinkInput" placeholder="e.g. Vanilla Oat Latte">
+        </div>
+
+        <div class="form-group">
+            <label for="sizeSelect">Cup Size:</label>
+            <select id="sizeSelect">
+                <option value="small">Small</option>
+                <option value="medium" selected>Medium</option>
+                <option value="large">Large</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label><input type="checkbox" id="oatMilkCheck"> Add Oat Milk</label><br>
+            <label><input type="checkbox" id="extraShotCheck"> Extra Espresso Shot</label>
+        </div>
+
+        <div id="preview" class="preview-card preview-card--medium">
+            <h3 id="previewTitle" class="preview-card__name">House Brew</h3>
+            <div id="tagContainer" class="tag-container"></div>
+        </div>
+    </div>
+
+    <script>
+        const drinkInput = document.querySelector('#drinkInput');
+        const sizeSelect = document.querySelector('#sizeSelect');
+        const oatMilkCheck = document.querySelector('#oatMilkCheck');
+        const extraShotCheck = document.querySelector('#extraShotCheck');
+
+        const preview = document.querySelector('#preview');
+        const previewTitle = document.querySelector('#previewTitle');
+        const tagContainer = document.querySelector('#tagContainer');
+
+        drinkInput.addEventListener('input', (e) => {
+            previewTitle.textContent = e.target.value.trim() || 'House Brew';
+        });
+
+        sizeSelect.addEventListener('change', (e) => {
+            preview.classList.remove('preview-card--small', 'preview-card--medium', 'preview-card--large');
+            preview.classList.add(`preview-card--${e.target.value}`);
+        });
+
+        function updateTags() {
+            tagContainer.innerHTML = '';
+
+            if (oatMilkCheck.checked) {
+                const tag = document.createElement('span');
+                tag.className = 'tag tag--accent';
+                tag.textContent = 'Oat Milk';
+                tagContainer.appendChild(tag);
+            }
+
+            if (extraShotCheck.checked) {
+                const tag = document.createElement('span');
+                tag.className = 'tag tag--accent';
+                tag.textContent = '+1 Espresso Shot';
+                tagContainer.appendChild(tag);
+            }
+        }
+
+        oatMilkCheck.addEventListener('change', updateTags);
+        extraShotCheck.addEventListener('change', updateTags);
+    </script>
+</body>
+
+</html>
