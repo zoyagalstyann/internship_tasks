@@ -2,8 +2,18 @@
   "todos": [
     {
       "title": "hi ia ma zoya",
-      "completed": false,
+      "completed": true,
       "id": "bj_vMfjxZSY"
+    },
+    {
+      "title": "hi",
+      "completed": false,
+      "id": "GbZxGk3cTXY"
+    },
+    {
+      "title": "hi",
+      "completed": false,
+      "id": "d_B6Xbz6P2g"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"
