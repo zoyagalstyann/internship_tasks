@@ -2,23 +2,10 @@
 import { ref, onMounted } from "vue";
 
 const products = ref([]);
-const loading = ref(true);
-const error = ref("");
 
 async function fetchProducts() {
-  try {
-    const response = await fetch("http://localhost:3000/products");
-
-    if (!response.ok) {
-      throw new Error("Failed to fetch products");
-    }
-
-    products.value = await response.json();
-  } catch (err) {
-    error.value = err.message;
-  } finally {
-    loading.value = false;
-  }
+  const response = await fetch("http://localhost:3000/products");
+  products.value = await response.json();
 }
 
 onMounted(fetchProducts);
@@ -28,26 +15,19 @@ onMounted(fetchProducts);
   <div class="products">
     <h1>Products</h1>
 
-    <p v-if="loading">Loading...</p>
+    <div
+      v-for="product in products"
+      :key="product.id"
+      class="product"
+    >
+      <RouterLink :to="`/products/${product.id}`">
+        <h2>{{ product.title }}</h2>
+      </RouterLink>
 
-    <p v-else-if="error">{{ error }}</p>
-
-    <div v-else>
-      <div
-        v-for="product in products"
-        :key="product.id"
-        class="product"
-      >
-        <RouterLink :to="`/products/${product.id}`">
-          <h2>{{ product.title }}</h2>
-        </RouterLink>
-
-        <p>${{ product.price }}</p>
-      </div>
+      <p>${{ product.price }}</p>
     </div>
   </div>
 </template>
-
 
 <style scoped>
 .products {

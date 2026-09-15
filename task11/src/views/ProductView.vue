@@ -5,25 +5,13 @@ import { useRoute } from "vue-router";
 const route = useRoute();
 
 const product = ref(null);
-const loading = ref(true);
-const error = ref("");
 
 async function fetchProduct() {
-  try {
-    const response = await fetch(
-      `http://localhost:3000/products/${route.params.id}`
-    );
+  const response = await fetch(
+    `http://localhost:3000/products/${route.params.id}`
+  );
 
-    if (!response.ok) {
-      throw new Error("Product not found");
-    }
-
-    product.value = await response.json();
-  } catch (err) {
-    error.value = err.message;
-  } finally {
-    loading.value = false;
-  }
+  product.value = await response.json();
 }
 
 onMounted(fetchProduct);
@@ -35,11 +23,7 @@ onMounted(fetchProduct);
       Back to Products
     </RouterLink>
 
-    <p v-if="loading">Loading...</p>
-
-    <p v-else-if="error">{{ error }}</p>
-
-    <div v-else class="product">
+    <div v-if="product" class="product">
       <h1>{{ product.title }}</h1>
       <p>Price: ${{ product.price }}</p>
     </div>
