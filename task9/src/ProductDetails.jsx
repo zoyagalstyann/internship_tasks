@@ -11,9 +11,7 @@ function ProductDetails() {
       .then((data) => setProduct(data));
   }, [id]);
 
-  if (!product) {
-    return <p>Loading...</p>;
-  }
+  
 
   return (
     <div className="container">
