@@ -1,3 +1,7 @@
+
+
+const API_URL = import.meta.env.VITE_API_URL;
+
 import { useEffect, useState } from "react";
 
 function App() {
@@ -23,8 +27,8 @@ function App() {
       params.append("status", statusFilter);
     }
 
-    const response = await fetch(`/tasks?${params}`);
-    const data = await response.json();
+    fetch(`${API_URL}/tasks?${params}`)
+        const data = await response.json();
 
     setTasks(data.tasks);
     setTotal(data.total);
@@ -44,7 +48,7 @@ function App() {
     };
 
     if (editingId) {
-      await fetch(`/tasks/${editingId}`, {
+      await fetch(`${API_URL}/tasks/${editingId}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json"
@@ -52,7 +56,7 @@ function App() {
         body: JSON.stringify(taskData)
       });
     } else {
-      await fetch("/tasks", {
+        fetch(`${API_URL}/tasks/${id}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
