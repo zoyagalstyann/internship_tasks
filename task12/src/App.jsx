@@ -1,8 +1,7 @@
 
+import { useEffect, useState } from "react";
 
 const API_URL = import.meta.env.VITE_API_URL;
-
-import { useEffect, useState } from "react";
 
 function App() {
   const [tasks, setTasks] = useState([]);
@@ -27,8 +26,8 @@ function App() {
       params.append("status", statusFilter);
     }
 
-    fetch(`${API_URL}/tasks?${params}`)
-        const data = await response.json();
+    const response = await fetch(`${API_URL}/tasks?${params}`);
+    const data = await response.json();
 
     setTasks(data.tasks);
     setTotal(data.total);
@@ -56,7 +55,7 @@ function App() {
         body: JSON.stringify(taskData)
       });
     } else {
-        fetch(`${API_URL}/tasks/${id}`, {
+      await fetch(`${API_URL}/tasks`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
@@ -82,7 +81,7 @@ function App() {
   }
 
   async function deleteTask(id) {
-    await fetch(`/tasks/${id}`, {
+    await fetch(`${API_URL}/tasks/${id}`, {
       method: "DELETE"
     });
 
