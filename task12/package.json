@@ -3,10 +3,11 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "scripts": {
-    "server": "node server.js",
-    "dev": "vite"
-  },
+ "scripts": {
+  "server": "node server.js",
+  "dev": "vite",
+  "build": "vite build"
+},
   "keywords": [],
   "author": "",
   "license": "ISC",
