@@ -1,3 +1,5 @@
+const cors = require("cors");
+
 require("dotenv").config();
 
 const express = require("express");
@@ -5,6 +7,7 @@ const taskRoutes = require("./routes/taskRoutes");
 const errorMiddleware = require("./middleware/errorMiddleware");
 
 const app = express();
+app.use(cors());
 
 app.use(express.json());
 
