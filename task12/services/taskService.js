@@ -23,7 +23,7 @@ async function readTasks() {
 let writeQueue = Promise.resolve();
 
 function updateTasks(updateFunction) {
-  writeQueue = writeQueue.then(async () => {
+  const operation = writeQueue.then(async () => {
     const tasks = await readTasks();
 
     const updatedTasks = await updateFunction(tasks);
@@ -36,7 +36,9 @@ function updateTasks(updateFunction) {
     return updatedTasks;
   });
 
-  return writeQueue;
+  writeQueue = operation.catch(() => {});
+
+  return operation;
 }
 
 module.exports = {
