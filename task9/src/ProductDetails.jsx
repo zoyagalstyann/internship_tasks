@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 
 function ProductDetails() {
   const { id } = useParams();
+
   const [product, setProduct] = useState(null);
 
   useEffect(() => {
@@ -11,7 +12,9 @@ function ProductDetails() {
       .then((data) => setProduct(data));
   }, [id]);
 
-  
+  if (!product) {
+    return <p>Loading...</p>;
+  }
 
   return (
     <div className="container">
