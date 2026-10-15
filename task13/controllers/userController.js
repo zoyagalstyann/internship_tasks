@@ -1,3 +1,4 @@
+
 const pool = require("../db/pool");
 
 async function getUsers(req, res, next) {
@@ -17,7 +18,9 @@ async function getUserTasks(req, res, next) {
     const id = Number(req.params.id);
 
     if (!Number.isInteger(id) || id < 1) {
-      return res.status(400).json({ message: "Invalid user ID" });
+      return res.status(400).json({
+        message: "Invalid user ID"
+      });
     }
 
     const user = await pool.query(
@@ -25,21 +28,23 @@ async function getUserTasks(req, res, next) {
       [id]
     );
 
-    if (!user.rows.length) {
-      return res.status(404).json({ message: "User not found" });
+    if (user.rows.length === 0) {
+      return res.status(404).json({
+        message: "User not found"
+      });
     }
 
     const result = await pool.query(
       `SELECT
-         t.id,
-         t.title,
-         t.description,
-         t.status,
-         t.user_id AS "userId",
-         t.created_at AS "createdAt"
-       FROM tasks t
-       WHERE t.user_id = $1
-       ORDER BY t.id`,
+         id,
+         title,
+         description,
+         status,
+         user_id AS "userId",
+         created_at AS "createdAt"
+       FROM tasks
+       WHERE user_id = $1
+       ORDER BY id`,
       [id]
     );
 
@@ -49,4 +54,7 @@ async function getUserTasks(req, res, next) {
   }
 }
 
-module.exports = { getUsers, getUserTasks };
+module.exports = {
+  getUsers,
+  getUserTasks
+};

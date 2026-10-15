@@ -1,28 +1,11 @@
+
 const pool = require("../db/pool");
 
 async function getCategories(req, res, next) {
   try {
-    const result = await pool.query(`
-      SELECT
-        c.id,
-        c.title,
-        c.description,
-        COALESCE(
-          json_agg(
-            json_build_object(
-              'id', t.id,
-              'title', t.title,
-              'status', t.status
-            )
-          ) FILTER (WHERE t.id IS NOT NULL),
-          '[]'
-        ) AS tasks
-      FROM categories c
-      LEFT JOIN task_categories tc ON tc.category_id = c.id
-      LEFT JOIN tasks t ON t.id = tc.task_id
-      GROUP BY c.id
-      ORDER BY c.id
-    `);
+    const result = await pool.query(
+      "SELECT id, title, description FROM categories ORDER BY id"
+    );
 
     res.json(result.rows);
   } catch (error) {
@@ -32,14 +15,9 @@ async function getCategories(req, res, next) {
 
 async function createCategory(req, res, next) {
   try {
-    const title =
-      typeof req.body.title === "string" ? req.body.title.trim() : "";
-    const description =
-      typeof req.body.description === "string"
-        ? req.body.description.trim()
-        : null;
+    const { title, description } = req.body;
 
-    if (!title) {
+    if (typeof title !== "string" || !title.trim()) {
       return res.status(400).json({
         message: "Category title is required"
       });
@@ -49,13 +27,25 @@ async function createCategory(req, res, next) {
       `INSERT INTO categories (title, description)
        VALUES ($1, $2)
        RETURNING id, title, description`,
-      [title, description || null]
+      [
+        title.trim(),
+        typeof description === "string" ? description.trim() || null : null
+      ]
     );
 
     res.status(201).json(result.rows[0]);
   } catch (error) {
+    if (error.code === "23505") {
+      return res.status(409).json({
+        message: "Category already exists"
+      });
+    }
+
     next(error);
   }
 }
 
-module.exports = { getCategories, createCategory };
+module.exports = {
+  getCategories,
+  createCategory
+};

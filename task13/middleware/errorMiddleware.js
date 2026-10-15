@@ -1,6 +1,6 @@
 
 function errorMiddleware(error, req, res, next) {
-  console.error(error.message);
+  console.error(error);
 
   if (res.headersSent) {
     return next(error);
