@@ -9,8 +9,27 @@ datasource db {
 }
 
 model User {
-  id        Int      @id @default(autoincrement())
-  name      String
-  email     String   @unique
-  createdAt DateTime @default(now())
+  id           Int        @id @default(autoincrement())
+  name         String
+  email        String     @unique
+  createdAt    DateTime   @default(now())
+
+  departmentId Int?
+  department   Department? @relation(fields: [departmentId], references: [id], onDelete: SetNull)
+
+  projects     Project[]
+}
+
+model Department {
+  id    Int    @id @default(autoincrement())
+  name  String @unique
+
+  users User[]
+}
+
+model Project {
+  id    Int    @id @default(autoincrement())
+  name  String @unique
+
+  users User[]
 }
