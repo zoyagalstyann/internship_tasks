@@ -1,63 +1,88 @@
-
 import { useEffect, useState } from "react";
+
 import "./App.css";
 
 const API_URL = "http://localhost:3000";
+
 const PAGE_SIZE = 5;
 
 function App() {
   const [users, setUsers] = useState([]);
+
   const [departments, setDepartments] = useState([]);
+
   const [projects, setProjects] = useState([]);
 
   const [search, setSearch] = useState("");
+
   const [sortField, setSortField] = useState("id");
+
   const [sortDirection, setSortDirection] = useState("asc");
+
   const [page, setPage] = useState(1);
+
   const [total, setTotal] = useState(0);
+
   const [totalPages, setTotalPages] = useState(0);
 
   const [loading, setLoading] = useState(false);
+
   const [error, setError] = useState("");
 
   const [name, setName] = useState("");
+
   const [email, setEmail] = useState("");
+
   const [addDepartmentId, setAddDepartmentId] = useState("");
+
   const [addProjectIds, setAddProjectIds] = useState([]);
+
   const [formError, setFormError] = useState("");
+
   const [formMessage, setFormMessage] = useState("");
+
   const [adding, setAdding] = useState(false);
 
   const [editingUser, setEditingUser] = useState(null);
+
   const [editName, setEditName] = useState("");
+
   const [editEmail, setEditEmail] = useState("");
+
   const [editDepartmentId, setEditDepartmentId] = useState("");
+
   const [editProjectIds, setEditProjectIds] = useState([]);
+
   const [editError, setEditError] = useState("");
+
   const [saving, setSaving] = useState(false);
 
   async function fetchUsers() {
     setLoading(true);
+
     setError("");
 
     try {
       const params = new URLSearchParams({
         search,
+
         sortBy: sortField,
+
         order: sortDirection,
+
         page: String(page),
+
         limit: String(PAGE_SIZE),
       });
 
       const response = await fetch(`${API_URL}/users?${params}`);
+
       const data = await response.json();
 
-      if (!response.ok) {
-        throw new Error(data.error || "Could not load users");
-      }
-
       setUsers(data.users);
+
       setTotal(data.total);
+
       setTotalPages(data.totalPages);
     } catch (err) {
       setError(err.message || "Something went wrong");
@@ -80,17 +105,8 @@ function App() {
         throw new Error("Could not load departments or projects");
       }
 
-      setDepartments(
-        Array.isArray(departmentData)
-          ? departmentData
-          : departmentData.departments || []
-      );
-
-      setProjects(
-        Array.isArray(projectData)
-          ? projectData
-          : projectData.projects || []
-      );
+      setDepartments(departmentData);
+      setProjects(projectData);
     } catch (err) {
       setError(err.message || "Could not load departments and projects");
     }
@@ -108,17 +124,20 @@ function App() {
     setAddProjectIds((currentIds) =>
       currentIds.includes(projectId)
         ? currentIds.filter((id) => id !== projectId)
-        : [...currentIds, projectId]
+        : [...currentIds, projectId],
     );
   }
 
   async function handleAddUser(event) {
     event.preventDefault();
+
     setFormError("");
+
     setFormMessage("");
 
     if (!name.trim() || !email.trim()) {
       setFormError("Name and email are required");
+
       return;
     }
 
@@ -127,32 +146,36 @@ function App() {
     try {
       const response = await fetch(`${API_URL}/users`, {
         method: "POST",
+
         headers: {
           "Content-Type": "application/json",
         },
+
         body: JSON.stringify({
           name: name.trim(),
+
           email: email.trim(),
-          departmentId: addDepartmentId
-            ? Number(addDepartmentId)
-            : null,
+
+          departmentId: addDepartmentId ? Number(addDepartmentId) : null,
+
           projectIds: addProjectIds,
         }),
       });
 
       const data = await response.json();
 
-      if (!response.ok) {
-        throw new Error(data.error || "Could not add user");
-      }
-
       setName("");
+
       setEmail("");
+
       setAddDepartmentId("");
+
       setAddProjectIds([]);
+
       setFormMessage("User added successfully!");
 
       setSearch("");
+
       setPage(1);
 
       if (search === "" && page === 1) {
@@ -167,16 +190,19 @@ function App() {
 
   function startEditing(user) {
     setEditingUser(user);
+
     setEditName(user.name || "");
+
     setEditEmail(user.email || "");
-    setEditDepartmentId(
-      user.departmentId ? String(user.departmentId) : ""
-    );
+
+    setEditDepartmentId(user.departmentId ? String(user.departmentId) : "");
+
     setEditProjectIds(
       Array.isArray(user.projects)
         ? user.projects.map((project) => project.id)
-        : []
+        : [],
     );
+
     setEditError("");
   }
 
@@ -184,16 +210,18 @@ function App() {
     setEditProjectIds((currentIds) =>
       currentIds.includes(projectId)
         ? currentIds.filter((id) => id !== projectId)
-        : [...currentIds, projectId]
+        : [...currentIds, projectId],
     );
   }
 
   async function handleUpdateUser(event) {
     event.preventDefault();
+
     setEditError("");
 
     if (!editName.trim() || !editEmail.trim()) {
       setEditError("Name and email are required");
+
       return;
     }
 
@@ -202,29 +230,30 @@ function App() {
     try {
       const response = await fetch(
         `${API_URL}/users/${editingUser.id}`,
+
         {
           method: "PUT",
+
           headers: {
             "Content-Type": "application/json",
           },
+
           body: JSON.stringify({
             name: editName.trim(),
+
             email: editEmail.trim(),
-            departmentId: editDepartmentId
-              ? Number(editDepartmentId)
-              : null,
+
+            departmentId: editDepartmentId ? Number(editDepartmentId) : null,
+
             projectIds: editProjectIds,
           }),
-        }
+        },
       );
 
       const data = await response.json();
 
-      if (!response.ok) {
-        throw new Error(data.error || "Could not update user");
-      }
-
       setEditingUser(null);
+
       await fetchUsers();
     } catch (err) {
       setEditError(err.message || "Could not update user");
@@ -235,7 +264,7 @@ function App() {
 
   async function handleDeleteUser(id) {
     const confirmed = window.confirm(
-      "Are you sure you want to delete this user?"
+      "Are you sure you want to delete this user?",
     );
 
     if (!confirmed) return;
@@ -246,10 +275,6 @@ function App() {
       });
 
       const data = await response.json();
-
-      if (!response.ok) {
-        throw new Error(data.error || "Could not delete user");
-      }
 
       if (users.length === 1 && page > 1) {
         setPage(page - 1);
@@ -266,6 +291,7 @@ function App() {
       setSortDirection(sortDirection === "asc" ? "desc" : "asc");
     } else {
       setSortField(field);
+
       setSortDirection("asc");
     }
 
@@ -274,6 +300,7 @@ function App() {
 
   function getSortSymbol(field) {
     if (sortField !== field) return "";
+
     return sortDirection === "asc" ? " ↑" : " ↓";
   }
 
@@ -301,11 +328,10 @@ function App() {
 
           <select
             value={addDepartmentId}
-            onChange={(event) =>
-              setAddDepartmentId(event.target.value)
-            }
+            onChange={(event) => setAddDepartmentId(event.target.value)}
           >
             <option value="">Select department</option>
+
             {departments.map((department) => (
               <option key={department.id} value={department.id}>
                 {department.name}
@@ -324,10 +350,9 @@ function App() {
                   <input
                     type="checkbox"
                     checked={addProjectIds.includes(project.id)}
-                    onChange={() =>
-                      handleAddProjectChange(project.id)
-                    }
+                    onChange={() => handleAddProjectChange(project.id)}
                   />
+
                   {project.name}
                 </label>
               ))
@@ -340,6 +365,7 @@ function App() {
         </form>
 
         {formError && <p className="error">{formError}</p>}
+
         {formMessage && <p className="success">{formMessage}</p>}
       </section>
 
@@ -364,11 +390,10 @@ function App() {
 
             <select
               value={editDepartmentId}
-              onChange={(event) =>
-                setEditDepartmentId(event.target.value)
-              }
+              onChange={(event) => setEditDepartmentId(event.target.value)}
             >
               <option value="">No department</option>
+
               {departments.map((department) => (
                 <option key={department.id} value={department.id}>
                   {department.name}
@@ -384,10 +409,9 @@ function App() {
                   <input
                     type="checkbox"
                     checked={editProjectIds.includes(project.id)}
-                    onChange={() =>
-                      handleEditProjectChange(project.id)
-                    }
+                    onChange={() => handleEditProjectChange(project.id)}
                   />
+
                   {project.name}
                 </label>
               ))}
@@ -415,6 +439,7 @@ function App() {
       <section className="panel">
         <div className="table-heading">
           <h2>Users</h2>
+
           <p>Total users: {total}</p>
         </div>
 
@@ -425,6 +450,7 @@ function App() {
           value={search}
           onChange={(event) => {
             setSearch(event.target.value);
+
             setPage(1);
           }}
         />
@@ -446,6 +472,7 @@ function App() {
                       ID{getSortSymbol("id")}
                     </button>
                   </th>
+
                   <th>
                     <button
                       className="sort-button"
@@ -454,6 +481,7 @@ function App() {
                       Name{getSortSymbol("name")}
                     </button>
                   </th>
+
                   <th>
                     <button
                       className="sort-button"
@@ -462,8 +490,11 @@ function App() {
                       Email{getSortSymbol("email")}
                     </button>
                   </th>
+
                   <th>Department</th>
+
                   <th>Projects</th>
+
                   <th>
                     <button
                       className="sort-button"
@@ -472,6 +503,7 @@ function App() {
                       Created At{getSortSymbol("createdAt")}
                     </button>
                   </th>
+
                   <th>Actions</th>
                 </tr>
               </thead>
@@ -485,26 +517,35 @@ function App() {
                   users.map((user) => (
                     <tr key={user.id}>
                       <td>{user.id}</td>
+
                       <td>{user.name}</td>
+
                       <td>{user.email}</td>
+
                       <td>{user.department?.name || "—"}</td>
+
                       <td>
                         {user.projects?.length
                           ? user.projects
+
                               .map((project) => project.name)
+
                               .join(", ")
                           : "—"}
                       </td>
+
                       <td>
                         {user.createdAt
                           ? new Date(user.createdAt).toLocaleDateString()
                           : "—"}
                       </td>
+
                       <td>
                         <div className="action-buttons">
                           <button onClick={() => startEditing(user)}>
                             Edit
                           </button>
+
                           <button
                             className="delete-button"
                             onClick={() => handleDeleteUser(user.id)}
@@ -522,10 +563,7 @@ function App() {
         )}
 
         <div className="pagination">
-          <button
-            disabled={page <= 1}
-            onClick={() => setPage(page - 1)}
-          >
+          <button disabled={page <= 1} onClick={() => setPage(page - 1)}>
             Previous
           </button>
 
